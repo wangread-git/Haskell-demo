@@ -1,3 +1,6 @@
+--Haskell函数名不能以大写开头，以下是错误的
+--Haha = 1 + 1
+
 addTwo :: Int -> Int -> Int
 addTwo x y = x + y
 
@@ -68,3 +71,18 @@ quickSort (x:xs) =
     in smallerSorted ++ [x] ++ biggerSorted
 
 unsafeheader = \(x:_) -> x
+
+mytuple :: [Int] -> String -> ([Int], String)
+mytuple a b = (a, b)
+
+--理解currying function的时候，用let代入比较好理解
+applyTwice :: (a -> a) -> a -> a
+applyTwice f x = f (f x)
+--例如 applyTwice (+3) 10，转化为以下过程
+--let plus3 = (+3)
+--plus3 10，等同于 10 + 3
+--plus3 13, 13是上一步的结果，等同于13 + 3
+--又比如 applyTwice (++ " HAHA") "HEY"，转化为以下过程
+--let haha = (++ " HAHA")
+--haha "HEY"，等同于 "HEY" ++ " HAHA",结果是"HEY HAHA"
+--haha "HEY HAHA"，等同于 "HEY HAHA" ++ " HAHA",结果是"HEY HAHA HAHA"
