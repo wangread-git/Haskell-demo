@@ -51,3 +51,20 @@ cylinder r h =
     let sideArea = 2 * pi * r * h
         topArea = pi * r ^ 2
     in sideArea + 2 * topArea
+
+myMax :: (Ord a) => [a] -> a
+myMax [] = error "maximum of empty list"
+myMax [x] = x
+myMax (x:xs) = max x (myMax xs)
+
+listLess :: (Ord a) => a -> [a] -> [a]
+listLess n xs = [x | x <- xs, x <= n]
+
+quickSort :: (Ord a) => [a] -> [a]
+quickSort [] = []
+quickSort (x:xs) =
+    let smallerSorted = quickSort [a | a <- xs, a <= x]
+        biggerSorted = quickSort [a | a <- xs, a > x]
+    in smallerSorted ++ [x] ++ biggerSorted
+
+unsafeheader = \(x:_) -> x
