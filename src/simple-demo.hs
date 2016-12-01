@@ -86,3 +86,22 @@ applyTwice f x = f (f x)
 --let haha = (++ " HAHA")
 --haha "HEY"，等同于 "HEY" ++ " HAHA",结果是"HEY HAHA"
 --haha "HEY HAHA"，等同于 "HEY HAHA" ++ " HAHA",结果是"HEY HAHA HAHA"
+
+largestDivisible :: (Integral a) => a
+largestDivisible = head (filter p [100000,99999..])
+    where p x = x `mod` 3829 == 0
+
+chain :: (Integral a) => a -> [a]
+chain 1 = [1]
+chain n
+    | even n = n : chain (n `div` 2)
+    | odd n = n : chain (n * 3 + 1)
+
+numLongChains :: Int
+numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
+
+longestChains :: Int
+longestChains = maximum (map length (map chain [1..100]))
+
+mySum2 :: (Num a) => [a] -> a
+mySum2 = foldl (+) 0
